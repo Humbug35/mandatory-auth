@@ -1,0 +1,23 @@
+<div class="container">
+
+  <!-- Complete this markup for showing error upon unsuccessful login. -->
+  <p class="error" *ngIf="isError">Login credentials were incorrect!</p>
+
+  <!-- Complete this markup for showing the status bar correctly, depending on whether or not the user is authenticated. -->
+  <div class="status" *ngIf="authService._user">
+    <span>User ID: {{ authService._user && authService._user.name !== undefined ? authService._user.name : 'N/A' }} </span>
+    <button (click)="testApi()">Test API</button>
+    <button (click)="logout()">Logout</button>
+  </div>
+
+  <form *ngIf="!authService._user">
+    <label>Username</label><br>
+    <input type="text" name="username" [(ngModel)]="credentials.username"/><br>
+    <label>Password</label><br>
+    <input type="password" name="password" [(ngModel)]="credentials.password"/><br>
+    <button type="submit" (click)="login()" [disabled]="isValidForm()">Log In</button>
+  </form>
+
+  <app-friends [friends]="friends" *ngIf="authService._user"></app-friends>
+
+</div>
